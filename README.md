@@ -1,68 +1,52 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Front End Tech Assessment Title: Invoicing App
+ Figure 1
+ Figure 2
+ Figure 3
 
-## Available Scripts
+1. Implement a simple Invoice Application in React.
+Requirements.
 
-In the project directory, you can run:
+2. Use the create-react-app tool to setup your React Application.
+ An invoice is a document created by a seller of a product/service to request payment from the buyer of the product/service.
 
-### `npm start`
+3. The first route should be a ‘List View’ Page of all existing invoices for that user. Refer to Figure 1 for details about the design of this view.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. There should be a button to create a new invoice and a button on each list item to Edit an invoice. Refer to Figure 1 for details.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+5. Clicking the ‘Create’ button should navigate the user to a ‘Create Invoice’ Page, where a user can add a new invoice.
 
-### `npm test`
+6. Each invoice can contain an arbitrary number of line items.  A line item being a specific product/service being bought.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+7. Each line item has a description and an amount. There has to be at least 1 line item per invoice.
 
-### `npm run build`
+8. The user can add more line items by clicking the ‘+’ icon.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+9. There should be a read-only TOTAL that updates dynamically as line items are added to the invoice.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+10. Clicking the ‘Create’ button should navigate the user back to the ‘List View’ Page with the added
+invoice now showing.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+11. There should also be a ‘Back’ button. Clicking the ‘Back’ button should navigate the user back to the
+‘List View’ Page.
 
-### `npm run eject`
+Refer to Figure 2 for details.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+12. Clicking the ‘Edit’ button on an Invoice list item should navigate the user to the ‘Edit Invoice’ Page, where a user can edit an invoice. Editing an invoice includes editing details of an invoice as well as deleting it altogether.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+13. Clicking the ‘Save button should navigate the user back to the ‘List View’ Page with the updated invoice now showing.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+14. Clicking the ‘Delete button should navigate the user back to the ‘List View’ Page with the deleted invoice not showing anymore.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+15. There should also be a ‘Back’ button. Clicking the ‘Back’ button should navigate the user back to the ‘List View’ Page.
 
-## Learn More
+Refer to Figure 3 for details.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Focus your implementation on a working front-end.
+Use the create-react-app tool for your React Application.
+You are free to style the application in any way that you would like to. Feel free to use any tools, components etc. to help accomplish your task.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Bonus considerations: 
+● Animations
+● Responsive & Mobile Web
+● Type ahead search
+● Any feature you would consider a value add
