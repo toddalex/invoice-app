@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-// unkown route handler
+// unknown route handler
 app.use('*', (req, res)=> {
   res.sendStatus(404);
 });
