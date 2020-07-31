@@ -14,10 +14,9 @@ const CreateInvoice =() => {
     setTotal(0.00)
   }, []); 
 
-  const handleInvoiceFormSave = async (e) => {
+  const handleInvoiceSave = async (e) => {
     e.preventDefault();
     const body = { name , email, dueDate, total}
-    console.log(body)
     try {
       const response = await fetch('http://localhost:8080/invoices', {
         method: 'POST',
@@ -53,7 +52,7 @@ const CreateInvoice =() => {
       </div>
       <div className="buttonContainer">
         <Link to="/"><button type="submit">BACK</button></Link>
-        <button type="submit" onClick={handleInvoiceFormSave}>CREATE</button>
+        <button type="submit" onClick={handleInvoiceSave}>CREATE</button>
       </div>
     </div>
   )

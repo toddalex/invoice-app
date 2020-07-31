@@ -1,20 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import EditInvoiceModal from './EditInvoiceModal';
 import '../App.css'
 
-export default function InvoiceCard(props) {
-
- 
+export default function InvoiceCard({ invoice }) {
   return (
     <div className="invoice-card-container">
       <ul className="invoice-card-list">
-        <li>Name: {props.name}</li>
-        <li>Email: {props.email}</li>
-        <li>Due Date: {props.dueDate.split('T')[0]}</li>
-        <li>Total: {props.total}</li>
+        <li>Name: {invoice.name}</li>
+        <li>Email: {invoice.email}</li>
+        <li>Due Date: {invoice.due_date.split('T')[0]}</li>
+        <li>Total: {invoice.total}</li>
       </ul>
       <div className="edit-button-container">
-        <Link to="/:id"><button type="submit">EDIT</button></Link>
+        <EditInvoiceModal 
+          invoice={invoice}
+        />
       </div>
     </div>
   )

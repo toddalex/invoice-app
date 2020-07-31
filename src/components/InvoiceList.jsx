@@ -10,7 +10,6 @@ const InvoiceList = () => {
     try {
       const response = await fetch('http://localhost:8080/invoices');
       const data = await response.json();
-
       setInvoices(data);
     } catch (err) {
       console.error(err.message);
@@ -18,21 +17,19 @@ const InvoiceList = () => {
   };
 
   useEffect(() => {
+    
     getInvoices()
   }, []); 
   
   return(
     <div className="invoice-list-container">
       <Link to='/invoice'><button type="submit">Create Inovice</button></Link>
-      {invoices.map((invoice, index) => {
+      {invoices.map(invoice => {
         return (
-        <InvoiceCard 
-          name={invoice.name} 
-          email={invoice.email} 
-          dueDate={invoice.due_date} 
-          total={invoice.total} 
-          key={invoice.invoice_id} 
-        />
+          <InvoiceCard 
+            invoice={invoice}
+            key={invoice.invoice_id}
+          />
         )
       })}
     </div>

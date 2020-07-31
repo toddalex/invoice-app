@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-//  const path = require('path');
 const pool = require('./db/db.js');
 
 const app = express();
@@ -12,11 +11,6 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
-// app.use(express.static(path.join(__dirname, '../public')));
-
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../src/index.js'));
-// });
 
 // ROUTES
 // create an invoice
@@ -95,6 +89,39 @@ app.delete('/invoices/:id', async (req, res) => {
     console.error(err.message);
   }
 })
+
+// add a line item
+
+app.post('/lineitems', async(req, res) => {
+  try {
+    const { description, amount, invoice_id } = req.body;
+    const values = [description, amount, invoice_id]
+    const addLineItemQuery = `INSERT INTO line_items (description, amount, invoice_id)
+       VALUES $1, $2, $3 RETURNING *`
+
+    const newLineItem = await pool.query(addLineItemQuery, values)
+
+    res.json(newLineItem.rows[0]);
+  } catch(err) {
+    console.error(err.message);
+  }
+})
+
+// get all line items
+
+app.get('/lineitems', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const getInvoicesQuery = `SELECT * FROM line_items WHERE invoice_id = $1`;
+
+    const allInvoices = await pool.query(getInvoicesQuery, id);
+    
+    res.json(allInvoices.rows); 
+  } catch (err) {
+    console.error(err.message);
+  }
+})
+
 
 // unknown route handler
 app.use('*', (req, res)=> {
