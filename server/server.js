@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
+//  const path = require('path');
 const pool = require('./db/db.js');
 
 const app = express();
@@ -19,7 +19,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 // });
 
 // ROUTES
-
 // create an invoice
 
 app.post('/invoices', async (req, res) => {
