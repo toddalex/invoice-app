@@ -27,7 +27,7 @@ app.post('/invoices', async (req, res) => {
 
     res.json(newInvoice.rows[0]);
   } catch (err) {
-    console.error(err.message)
+    console.error(err.message);
   }
 })
 
@@ -51,7 +51,7 @@ app.get('/invoices/:id', async (req, res) => {
     const getInvoiceQuery = `SELECT * FROM invoices WHERE invoice_id = $1`
     const invoice = await pool.query(getInvoiceQuery, [id])
 
-    res.json(invoice.rows[0])
+    res.json(invoice.rows[0]);
   } catch (err) {
     console.error(err.message);
   }
@@ -62,8 +62,8 @@ app.get('/invoices/:id', async (req, res) => {
 app.put('/invoices/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, due_date } = req.body;
-    const values = [name, email, due_date, id]
+    const { name, email, dueDate } = req.body;
+    const values = [name, email, dueDate, id]
     const updateInvoiceQuery = `UPDATE invoices SET name = $1, email = $2, due_date = $3 WHERE invoice_id = $4`
 
     const updateInvoice = await pool.query(updateInvoiceQuery, values);
@@ -121,7 +121,6 @@ app.get('/lineitems', async (req, res) => {
     console.error(err.message);
   }
 })
-
 
 // unknown route handler
 app.use('*', (req, res)=> {

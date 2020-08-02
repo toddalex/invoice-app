@@ -3,42 +3,46 @@ import React, { useState, useEffect, Fragment } from 'react';
 import '../App.css'
 
 const EditInvoiceModal = ({ invoice }) => {
-  const [name, setName] = useState(invoice.name)
-  const [email, setEmail] = useState(invoice.email)
-  const [dueDate, setDueDate] = useState("")
-  const [total, setTotal] = useState(invoice.total)
+  const [name, setName] = useState(invoice.name);
+  const [email, setEmail] = useState(invoice.email);
+  const [dueDate, setDueDate] = useState(invoice.due_date.split('T')[0]);
+  const [total, setTotal] = useState(invoice.total);
  
+  // delete invoice function
   const handleInvoiceDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:8080/invoices/${id}`, {
         method: 'DELETE'
       })
       console.log(response);
+      window.location = '/';
     } catch (err) {
       console.error(err.message);
     }
   }
 
-  useEffect(() => {
-    setTotal(0.00)
-  }, []); 
-
+  // edit invoice function
   const handleInvoiceEdit = async (e) => {
     e.preventDefault();
     try {
       const body = { name , email, dueDate, total} 
-      console.log(body)
-      const response = await fetch(`http://localhost:8080/invoices/${invoice.invoice_id}`, {
+      await fetch(`http://localhost:8080/invoices/${invoice.invoice_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
-      })
-      console.log(response)
+      });
+      // refresh page and reload invoices
+      window.location = '/';
     } catch (err) {
       console.error(err.message); 
     }  
   }
-  
+
+  // sets current total to 0.00 **placeholder
+  useEffect(() => {
+    setTotal(0.00);
+  }, []); 
+ 
   return(
     <Fragment>
       <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#id${invoice.invoice_id}`}>
