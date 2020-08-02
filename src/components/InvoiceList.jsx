@@ -6,6 +6,7 @@ import '../App.css'
 const InvoiceList = () => {
   const [invoices, setInvoices] = useState([]);
 
+  // fetch all invoices from db and set state to invoice data
   const getInvoices = async () => {
     try {
       const response = await fetch('http://localhost:8080/invoices');
@@ -17,7 +18,7 @@ const InvoiceList = () => {
   };
 
   useEffect(() => {
-    
+    // invokes get invoices function on component mount
     getInvoices()
   }, []); 
   

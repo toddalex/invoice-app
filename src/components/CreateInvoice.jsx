@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import LineItemList from './LineItemList'
 import '../App.css'
 
-const CreateInvoice =() => {
+const CreateInvoice =(props) => {
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -18,16 +18,17 @@ const CreateInvoice =() => {
     e.preventDefault();
     const body = { name , email, dueDate, total}
     try {
-      const response = await fetch('http://localhost:8080/invoices', {
+      await fetch('http://localhost:8080/invoices', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(body)
-      })
-      console.log(body, response)
+      });
+      // redirect to home page
+      window.location = '/'
     } catch (err) {
       console.error(err.message); 
     }  
-  }
+  };
   
   return(
     <div className="invoice-container">
