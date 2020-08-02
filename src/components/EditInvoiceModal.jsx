@@ -3,7 +3,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import '../App.css'
 
 const EditInvoiceModal = ({ invoice }) => {
-  const [invoices, setInvoices] = useState([]);
   const [name, setName] = useState(invoice.name);
   const [email, setEmail] = useState(invoice.email);
   const [dueDate, setDueDate] = useState(invoice.due_date.split('T')[0]);
