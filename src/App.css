@@ -58,7 +58,7 @@ h1 {
 .form-wrapper {
   width: 500px;
   border: 1px solid black;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
 }
 
 .invoice-form {
