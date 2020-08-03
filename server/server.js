@@ -7,14 +7,15 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
-// Middleware
+// MIDDLEWARE
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // ROUTES
-// create an invoice
 
+// create an invoice
 app.post('/invoices', async (req, res) => {
   try {
     const { name, email, dueDate, total } = req.body;
@@ -32,7 +33,6 @@ app.post('/invoices', async (req, res) => {
 })
 
 // get all invoices
-
 app.get('/invoices', async (req, res) => {
   try {
     const getInvoicesQuery = `SELECT * FROM invoices`;
@@ -44,7 +44,6 @@ app.get('/invoices', async (req, res) => {
 })
 
 // get an invoice
-
 app.get('/invoices/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -58,16 +57,15 @@ app.get('/invoices/:id', async (req, res) => {
 })
 
 // update an invoice
-
 app.put('/invoices/:id', async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, email, dueDate } = req.body;
-    const values = [name, email, dueDate, id]
-    const updateInvoiceQuery = `UPDATE invoices SET name = $1, email = $2, due_date = $3 WHERE invoice_id = $4`
+    const { name, email, dueDate, total, id } = req.body;
+    const values = [name, email, dueDate, total, id]
+    console.log(values)
+    const updateInvoiceQuery = `UPDATE invoices SET name = $1, email = $2, due_date = $3, total = $4 WHERE invoice_id = $5`
 
     const updateInvoice = await pool.query(updateInvoiceQuery, values);
-
+    console.log('inside update invoice', total)
     res.json('Invoice Was Updated!!');
     
   } catch (err) {
@@ -76,7 +74,6 @@ app.put('/invoices/:id', async (req, res) => {
 })
 
 // delete an invoice
-
 app.delete('/invoices/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,13 +88,12 @@ app.delete('/invoices/:id', async (req, res) => {
 })
 
 // add a line item
-
 app.post('/lineitems', async(req, res) => {
   try {
-    const { description, amount, invoice_id } = req.body;
-    const values = [description, amount, invoice_id]
+    const { description, amount, email } = req.body;
+    const values = [description, Number(amount), email]
     const addLineItemQuery = `INSERT INTO line_items (description, amount, invoice_id)
-       VALUES $1, $2, $3 RETURNING *`
+       VALUES ($1, $2, $3) RETURNING *`
 
     const newLineItem = await pool.query(addLineItemQuery, values)
 
@@ -108,15 +104,14 @@ app.post('/lineitems', async(req, res) => {
 })
 
 // get all line items
-
-app.get('/lineitems', async (req, res) => {
+app.get('/lineitems/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const getInvoicesQuery = `SELECT * FROM line_items WHERE invoice_id = $1`;
+    const getLineItemsQuery = `SELECT * FROM line_items WHERE invoice_id = $1`;
 
-    const allInvoices = await pool.query(getInvoicesQuery, id);
+    const allLineItems= await pool.query(getLineItemsQuery, [id]);
     
-    res.json(allInvoices.rows); 
+    res.json(allLineItems.rows); 
   } catch (err) {
     console.error(err.message);
   }
