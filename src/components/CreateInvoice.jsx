@@ -61,6 +61,7 @@ class CreateInvoice extends React.Component {
 
     return(
       <div className="invoice-container">
+        <div className="form-wrapper">
         <form className="invoice-form">
           <div className="input-wrapper">
             <label className="input-label">Name</label>
@@ -84,7 +85,8 @@ class CreateInvoice extends React.Component {
             <label className="input-label">Due Date</label>
             <input 
               type="date" 
-              name="dueDate" 
+              name="dueDate"
+              className="input"
               onChange={this.handleChange}
             ></input>
           </div>
@@ -96,11 +98,12 @@ class CreateInvoice extends React.Component {
         {lineItems}
         <div className="totals-wrapper">
           <label>TOTAL</label>
-          <p id='totalAmount'>{totalAmount}</p>
+          <p id='totalAmount'>${totalAmount}</p>
         </div>
-        <div className="buttonContainer">
-          <Link to="/"><button type="submit">BACK</button></Link>
-          <button type="submit" onClick={this.handleInvoiceSave}>CREATE</button>
+        <div className="button-wrapper">
+          <Link to="/"><button type="submit" className="btn btn-secondary col-3">BACK</button></Link>
+          <button type="submit" className="btn btn-success col-3 float-right" onClick={this.handleInvoiceSave}>CREATE</button>
+        </div>
         </div>
       </div>
     )

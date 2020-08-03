@@ -44,7 +44,6 @@ const EditInvoiceModal = ({ invoice }) => {
     try {
       const response = await fetch(`http://localhost:8080/lineitems/${invoice.email}`);
       const data = await response.json();
-      console.log(data)
       setLineItems(data);
     } catch (err) {
       console.error(err.message);
@@ -54,7 +53,7 @@ const EditInvoiceModal = ({ invoice }) => {
   // sets current total to 0.00 **placeholder
   useEffect(() => {
     getLineItems(invoice.email)
-  }, []); 
+  }); 
  
   return(
     <Fragment>
@@ -69,7 +68,7 @@ const EditInvoiceModal = ({ invoice }) => {
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="invoice-container">
+                <div className="modal-container">
                   <form className="invoice-form">
                     <div className="input-wrapper">
                       <label className="input-label">Name</label>
@@ -93,15 +92,16 @@ const EditInvoiceModal = ({ invoice }) => {
                       <label className="input-label">Due Date</label>
                       <input 
                         type="date" 
+                        className="input"
                         value={dueDate} 
                         onChange={(e) => setDueDate(e.target.value)}
                       ></input>
                     </div>
                   </form>
                   <CreateLineItem />
-                  {lineItems.map((line, index) => {
-                    return <LineItem description={line.description} amount={line.amount} key={index} />
-                  })}
+                    {lineItems.map((line, index) => {
+                      return <LineItem description={line.description} amount={line.amount} key={index} />
+                    })}
                   <div className="totals-wrapper">
                     <label>TOTAL</label>
                     <p>{invoice.total}</p>

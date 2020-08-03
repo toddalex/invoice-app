@@ -24,7 +24,9 @@ const InvoiceList = () => {
   
   return(
     <div className="invoice-list-container">
-      <Link to='/invoice'><button type="submit">Create Inovice</button></Link>
+      <div className="create-button-container">
+        <Link to='/invoice'><button type="submit" className="btn btn-secondary text-center">Create Inovice</button></Link>
+      </div>
       {invoices.map(invoice => {
         return (
           <InvoiceCard 

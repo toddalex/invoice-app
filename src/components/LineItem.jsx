@@ -1,11 +1,13 @@
 import React from 'react';
+import '../App.css'
 
 const LineItem = (props) => {
 
   return (
-    <div className="line-items-container">
-      <p>Description: {props.description}</p>
-      <p>Amount: {props.amount}</p>
+  
+    <div className="line-item-display">
+      <p>{props.description}</p>
+      <p>{props.amount}</p>
     </div>
   )
 }

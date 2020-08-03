@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Icon from '@material-ui/core/Icon';
+import '../App.css';
 
 const CreateLineItem = ({ email, addLineItem }) => {
   const [description, setDescription] = useState('');
@@ -23,26 +24,32 @@ const CreateLineItem = ({ email, addLineItem }) => {
   };
 
   return (
-    <div className="line-item-wrapper">
-      <div className="line-item-input">
-        <label className="input-label">Description</label>
-        <input 
-          type="text" 
-          name="description" 
-          onChange={(e) => setDescription(e.target.value)}
-        ></input>
-      </div>
-      <div className="line-item-input">
-        <label className="input-label">Amount</label>
-        <input 
-          type="number" 
-          name="amount" 
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        ></input>
+    <div className="line-item-container">
+      <div className="line-item-wrapper">
+        <div className="line-item-input">
+          <label className="input-label">Description</label>
+          <input 
+            type="text" 
+            name="description"
+            className="description"
+            onChange={(e) => setDescription(e.target.value)}
+          ></input>
+        </div>
+        <div className="line-item-input">
+          <label className="input-label">Amount</label>
+          <input 
+            type="number"
+            step="0.01"
+            name="amount"
+            className="amount"
+            value={amount}
+            style={{textAlign: 'right'}}
+            onChange={(e) => setAmount(e.target.value)}
+          ></input>
+        </div>
       </div>
       <Icon 
-        style={{ color: 'blue', fontSize: 30, cursor: 'pointer'}}
+        className="addItemIcon"
         onClick={handleLineItemAdd}
       >add_circle</Icon>
     </div>
@@ -50,3 +57,4 @@ const CreateLineItem = ({ email, addLineItem }) => {
 }
 
 export default CreateLineItem;
+
