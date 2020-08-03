@@ -16,13 +16,16 @@ class CreateInvoice extends React.Component {
     }
   }
 
+  // updates state property according to event target name
   handleChange = (e) => {
     const key = e.target.name;
     this.setState({ [key]: e.target.value })
   };
 
+  // creates a new invoice and stores info in db
   handleInvoiceSave = async (e) => {
     e.preventDefault();
+    // get total amount from innertext of total p element
     const total = document.getElementById('totalAmount').innerHTML
     
     const { name, email, dueDate } = this.state;
@@ -33,21 +36,24 @@ class CreateInvoice extends React.Component {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(body)
       });
-      // redirect to home page
-      console.log(body)
+      // redirects to home page
       window.location = '/'
     } catch (err) {
       console.error(err.message); 
     }  
   };
 
+  // creates function that concats state lineitems array with arguments passed in and
+  // updates state with new values, pass function down to CreateLineItem component
   addLineItem = (obj) => {
     const lineItemsArray = this.state.lineItems.concat(obj);
     this.setState({lineItems: lineItemsArray})
   }
 
   render() {
+    // sets initial value of total amount to $0.00
     let totalAmount = 0.00;
+    // renders list of line items 
     const lineItems = this.state.lineItems.map((li, index) => {
       totalAmount += Number(li.amount);
       return <LineItem description={li.description} amount={li.amount} key={index} />

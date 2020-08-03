@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
-// import LineItemList from './LineItemList'
+import LineItem from './LineItem';
+import CreateLineItem from './CreateLineItem';
 import '../App.css'
 
 const EditInvoiceModal = ({ invoice }) => {
@@ -7,6 +8,7 @@ const EditInvoiceModal = ({ invoice }) => {
   const [email, setEmail] = useState(invoice.email);
   const [dueDate, setDueDate] = useState(invoice.due_date.split('T')[0]);
   const [total, setTotal] = useState(invoice.total);
+  const [lineItems, setLineItems] = useState([])
  
   // delete invoice function
   const handleInvoiceDelete = async (id) => {
@@ -38,9 +40,20 @@ const EditInvoiceModal = ({ invoice }) => {
     }  
   }
 
+  const getLineItems = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/lineitems/${invoice.email}`);
+      const data = await response.json();
+      console.log(data)
+      setLineItems(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   // sets current total to 0.00 **placeholder
   useEffect(() => {
-    setTotal(0.00);
+    getLineItems(invoice.email)
   }, []); 
  
   return(
@@ -85,10 +98,13 @@ const EditInvoiceModal = ({ invoice }) => {
                       ></input>
                     </div>
                   </form>
-                  {/* <LineItemList /> */}
+                  <CreateLineItem />
+                  {lineItems.map((line, index) => {
+                    return <LineItem description={line.description} amount={line.amount} key={index} />
+                  })}
                   <div className="totals-wrapper">
                     <label>TOTAL</label>
-                    <p onClick={(() => console.log(invoice.invoice_id))}>{total}</p>
+                    <p>{invoice.total}</p>
                   </div>
                 </div>
               </div>

@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import Icon from '@material-ui/core/Icon';
 
-const CreateLineItem = ({ email, addLineItem}) => {
+const CreateLineItem = ({ email, addLineItem }) => {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState(0);
 
+  // creates a new line item in state and stores info in db
   const handleLineItemAdd = async (e) => {
     e.preventDefault();
     const body = { description, amount, email}
@@ -14,6 +15,7 @@ const CreateLineItem = ({ email, addLineItem}) => {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(body)
       });
+      // reassigns line-items array in state with new line-item
       addLineItem(body)
     } catch (err) {
       console.error(err.message); 
