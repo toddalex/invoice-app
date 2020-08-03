@@ -6,7 +6,8 @@ export default function InvoiceCard({ invoice }) {
   // format date dd-mm-yyyy
   const shortenedDate = invoice.due_date.split('T')[0].split('-');
   const formattedDate = `${shortenedDate[1]}-${shortenedDate[2]}-${shortenedDate[0]}`
-
+  console.log(invoice)
+  
   return (
     <div className="invoice-card-container">
       <ul className="invoice-card-list">
