@@ -21,10 +21,12 @@ h1 {
 /* ---- Invoice Card ---- */ 
 
 .invoice-card-container {
-  border: 1px solid black;
+  border: 1px solid lightslategray;
+  border-radius: 5px;
   margin: 2rem auto;
   display: flex;
   justify-content: space-between;
+  box-shadow: 1px 3px 10px rgba(0,0,0,0.2);
 }
 
 .invoice-card-list {
@@ -95,6 +97,10 @@ h1 {
 
 /* ---- CreateLineItem Component ---- */
 
+.line-item-container {
+  margin-bottom: 3rem;
+}
+
 .line-item-wrapper {
   display: flex;
   justify-content: space-between;
@@ -119,6 +125,10 @@ h1 {
   cursor: pointer;
   margin-top: 5px;
   font-size: 30;
+}
+
+.icon-container {
+  padding-top: 1.86rem;
 }
 
 /* ---- LineItem Component ---- */

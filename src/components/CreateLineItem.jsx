@@ -45,13 +45,15 @@ const CreateLineItem = ({ email, addLineItem }) => {
             value={amount}
             style={{textAlign: 'right'}}
             onChange={(e) => setAmount(e.target.value)}
-          ></input>
+          ></input>   
+        </div>
+        <div className="icon-container">
+        <Icon 
+          className="addItemIcon"
+          onClick={handleLineItemAdd}
+        >add_circle</Icon>
         </div>
       </div>
-      <Icon 
-        className="addItemIcon"
-        onClick={handleLineItemAdd}
-      >add_circle</Icon>
     </div>
   );
 }

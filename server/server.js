@@ -61,11 +61,12 @@ app.put('/invoices/:id', async (req, res) => {
   try {
     const { name, email, dueDate, total, id } = req.body;
     const values = [name, email, dueDate, total, id]
+    console.log(req.body)
     console.log(values)
     const updateInvoiceQuery = `UPDATE invoices SET name = $1, email = $2, due_date = $3, total = $4 WHERE invoice_id = $5`
 
     const updateInvoice = await pool.query(updateInvoiceQuery, values);
-    console.log('inside update invoice', total)
+  
     res.json('Invoice Was Updated!!');
     
   } catch (err) {

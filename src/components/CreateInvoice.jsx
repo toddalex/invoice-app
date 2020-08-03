@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import currency from 'currency.js'
 import CreateLineItem from './CreateLineItem';
 import LineItem from './LineItem'
 import '../App.css'
@@ -55,7 +56,8 @@ class CreateInvoice extends React.Component {
     let totalAmount = 0.00;
     // renders list of line items 
     const lineItems = this.state.lineItems.map((li, index) => {
-      totalAmount += Number(li.amount);
+      const newAmount = currency(totalAmount).add(li.amount)
+      totalAmount = newAmount.value;
       return <LineItem description={li.description} amount={li.amount} key={index} />
     })
 
