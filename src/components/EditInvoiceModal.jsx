@@ -1,7 +1,7 @@
 import React, {Fragment } from 'react';
+import currency from 'currency.js'
 import LineItem from './LineItem';
 import CreateLineItem from './CreateLineItem';
-import currency from 'currency.js'
 import '../App.css'
 
 class EditInvoiceModal extends React.Component {
@@ -34,9 +34,10 @@ class EditInvoiceModal extends React.Component {
   handleInvoiceEdit = async (e) => {
     e.preventDefault();
     try {
-      const total = document.getElementById('totalAmount').innerHTML
+      const total = document.getElementById('modal-total-amount').innerHTML
       const { name, email, dueDate, id } = this.state
       const body = { name , email, dueDate, total, id } 
+      console.log(body)
       await fetch(`http://localhost:8080/invoices/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -140,7 +141,7 @@ class EditInvoiceModal extends React.Component {
                       {lineItems}
                     <div className="totals-wrapper">
                       <label>TOTAL</label>
-                      <p id="totalAmount">${totalAmount}</p>
+                      <p id="modal-total-amount">${totalAmount}</p>
                     </div>
                   </div>
                 </div>
