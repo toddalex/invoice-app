@@ -1,62 +1,113 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-// import LineItemList from './LineItemList'
+import CreateLineItem from './CreateLineItem';
+import LineItem from './LineItem'
 import '../App.css'
 
-const CreateInvoice =(props) => {
+class CreateInvoice extends React.Component {
 
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [dueDate, setDueDate] = useState("")
-  const [total, setTotal] = useState("")
+  constructor() {
+    super();
+    this.state = {
+      name: '',
+      email: '',
+      dueDate: '',
+      lineItems: [],
+    }
+  }
 
-  useEffect(() => {
-    setTotal(0.00)
-  }, []); 
+  // updates state property according to event target name
+  handleChange = (e) => {
+    const key = e.target.name;
+    this.setState({ [key]: e.target.value })
+  };
 
-  const handleInvoiceSave = async (e) => {
+  // creates a new invoice and stores info in db
+  handleInvoiceSave = async (e) => {
     e.preventDefault();
-    const body = { name , email, dueDate, total}
+    // get total amount from innertext of total p element
+    const total = document.getElementById('totalAmount').innerHTML
+    
+    const { name, email, dueDate } = this.state;
+    const body = { name , email, dueDate, total};
     try {
       await fetch('http://localhost:8080/invoices', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(body)
       });
-      // redirect to home page
+      // redirects to home page
       window.location = '/'
     } catch (err) {
       console.error(err.message); 
     }  
   };
-  
-  return(
-    <div className="invoice-container">
-      <form className="invoice-form">
-        <div className="input-wrapper">
-          <label className="input-label">Name</label>
-          <input type="text" name="name" className="input" onChange={(e) => setName(e.target.value)}></input>
+
+  // creates function that concats state lineitems array with arguments passed in and
+  // updates state with new values, pass function down to CreateLineItem component
+  addLineItem = (obj) => {
+    const lineItemsArray = this.state.lineItems.concat(obj);
+    this.setState({lineItems: lineItemsArray})
+  }
+
+  render() {
+    // sets initial value of total amount to $0.00
+    let totalAmount = 0.00;
+    // renders list of line items 
+    const lineItems = this.state.lineItems.map((li, index) => {
+      totalAmount += Number(li.amount);
+      return <LineItem description={li.description} amount={li.amount} key={index} />
+    })
+
+    return(
+      <div className="invoice-container">
+        <div className="form-wrapper">
+        <form className="invoice-form">
+          <div className="input-wrapper">
+            <label className="input-label">Name</label>
+            <input 
+              type="text" 
+              name="name" 
+              className="input" 
+              onChange={this.handleChange}
+            ></input>
+          </div>
+          <div className="input-wrapper">
+            <label className="input-label">Email</label>
+            <input 
+              type="text" 
+              name="email" 
+              className="input"
+              onChange={this.handleChange}
+            ></input>
+          </div>
+          <div className="input-wrapper">
+            <label className="input-label">Due Date</label>
+            <input 
+              type="date" 
+              name="dueDate"
+              className="input"
+              onChange={this.handleChange}
+            ></input>
+          </div>
+        </form>
+        <CreateLineItem 
+          addLineItem={this.addLineItem} 
+          email={this.state.email}
+        />
+        {lineItems}
+        <div className="totals-wrapper">
+          <label>TOTAL</label>
+          <p id='totalAmount'>${totalAmount}</p>
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Email</label>
-          <input type="text" name="email" className="input"onChange={(e) => setEmail(e.target.value)}></input>
+        <div className="button-wrapper">
+          <Link to="/"><button type="submit" className="btn btn-secondary col-3">BACK</button></Link>
+          <button type="submit" className="btn btn-success col-3 float-right" onClick={this.handleInvoiceSave}>CREATE</button>
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Due Date</label>
-          <input type="date" name="dueDate" onChange={(e) => setDueDate(e.target.value)}></input>
         </div>
-      </form>
-      {/* <LineItemList /> */}
-      <div className="totals-wrapper">
-        <label>TOTAL</label>
-        <p>{total}</p>
       </div>
-      <div className="buttonContainer">
-        <Link to="/"><button type="submit">BACK</button></Link>
-        <button type="submit" onClick={handleInvoiceSave}>CREATE</button>
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default CreateInvoice;
