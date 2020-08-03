@@ -1,3 +1,129 @@
-.App {
+
+h1 {
+  background-color: dodgerblue;
+  color: white;
   text-align: center;
+}
+
+/* ---- Invoice List ---- */
+
+.invoice-list-container {
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.create-button-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ---- Invoice Card ---- */ 
+
+.invoice-card-container {
+  border: 1px solid black;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.invoice-card-list {
+  list-style-type: none;
+}
+
+.invoice-card-list li {
+  margin: 15px 0;
+}
+
+.edit-button-container {
+  display: flex;
+  align-items: flex-end;
+  margin: 0 3rem 2rem 0;
+}
+
+.input {
+  width: 250px;
+}
+
+/* ---- CreateInvoice Component ---- */
+
+.invoice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-wrapper {
+  width: 500px;
+  border: 1px solid black;
+  padding: 1rem 2rem;
+}
+
+.invoice-form {
+  margin-top: 1rem;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.totals-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+}
+
+.totals-wrapper p {
+  margin-left: 4rem;
+}
+
+/* ---- EditInvoiceModal Component ---- */
+
+.modal-header {
+  background-color: dodgerblue;
+}
+
+.modal-title {
+  color: white;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* ---- CreateLineItem Component ---- */
+
+.line-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.line-item-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  width: 300px
+}
+
+.amount {
+  width: 100px;
+}
+
+.addItemIcon {
+  color: dodgerblue;
+  cursor: pointer;
+  margin-top: 5px;
+  font-size: 30;
+}
+
+/* ---- LineItem Component ---- */
+
+.line-item-display {
+  display: flex;
+  justify-content: space-between;
 }
