@@ -34,7 +34,8 @@ class EditInvoiceModal extends React.Component {
   handleInvoiceEdit = async (e) => {
     e.preventDefault();
     try {
-      const total = document.getElementById('modal-total-amount').innerHTML
+      const total = document.getElementById(`modal${this.state.id}`).innerHTML
+      console.log(total)
       const { name, email, dueDate, id } = this.state
       const body = { name , email, dueDate, total, id } 
       console.log(body)
@@ -141,7 +142,7 @@ class EditInvoiceModal extends React.Component {
                       {lineItems}
                     <div className="totals-wrapper">
                       <label>TOTAL</label>
-                      <p id="modal-total-amount">${totalAmount}</p>
+                      <p id={`modal${this.state.id}`}>${totalAmount}</p>
                     </div>
                   </div>
                 </div>
